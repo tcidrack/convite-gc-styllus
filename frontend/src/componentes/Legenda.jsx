@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
-import { tema } from "../configuracaoTema"
+import { LEGENDAS } from "../legendas"
 import { tempoAtual } from "../services/videoBonequinha"
-
-const LEGENDAS = tema.recursos.legendas || []
 
 function fraseEm(segundos) {
   const legenda = LEGENDAS.find((l) => segundos >= l.inicio && segundos < l.fim)

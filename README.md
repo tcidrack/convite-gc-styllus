@@ -40,7 +40,17 @@ O som tenta ligar no toque do envelope e toca a fala uma vez; depois o vídeo re
 
 ### Legendas
 
-Ficam em `frontend/src/configuracaoTema.js`, em `recursos.legendas`, com início e fim em segundos do vídeo inteiro (a parte 2 começa em 10, a 3 em 20...). Ao acrescentar uma parte, o script imprime no fim os trechos com fala de cada uma: use esses tempos para as frases novas. Se uma frase aparecer adiantada ou atrasada, é só ajustar os números.
+Ficam em `frontend/src/configuracaoTema.js`, em `recursos.legendas`. Cada frase diz a parte (`'2'` para `boneca_gc-2.mp4`) e o início e o fim em segundos dentro do arquivo original dessa parte. O script grava em `src/partesVideo.js` onde cada parte cai no vídeo final; por isso cortar ou trocar uma parte não desloca as legendas das outras. Ao acrescentar uma parte, o script imprime no fim os trechos com fala de cada uma: use esses tempos para as frases novas. Se uma frase aparecer adiantada ou atrasada, é só ajustar os números.
+
+### Fala repetida ou dividida
+
+- Quando a IA repete uma palavra, o trecho sai pelo `CORTES` do `arte/gerar-video.py`, em quadros da parte (24 por segundo). O corte tem de cair num silêncio. Hoje ele tira o "e muito" repetido da parte 2.
+- Quando a IA engole uma palavra numa frase longa, mas fala direito sozinha, gere um vídeo curto só com essa palavra e use `TROCAS` no mesmo arquivo. A troca põe a fala desse vídeo no lugar do trecho e estica um pouco a imagem para a boca acompanhar. Hoje ela põe o "dez por cento" do `dez.mp4` na parte 3.
+- Se uma fala não cabe bem em 10s e sai engolida, divida em dois vídeos: `boneca_gc-3.mp4` e `boneca_gc-3b.mp4`. A letra entra logo depois da parte com o mesmo número.
+
+### Story
+
+`python arte/gerar-story.py` (depois do `gerar-video.py`) gera `story-gc-styllus.mp4` na raiz do projeto. É um vídeo vertical para o story, com legenda e endereço gravados na imagem.
 
 O navegador pode guardar o vídeo antigo depois de gerar um novo: recarregue com Ctrl+F5.
 

@@ -78,32 +78,33 @@ export const tema = {
     videoPoster: '/assets/bonequinha-poster.webp',
     videoAnimado: '/assets/bonequinha-animado.webp',
     audioReserva: '/assets/bonequinha-audio.m4a',
-    // Em segundos do video inteiro. Cada parte (boneca_gc-N.mp4) dura 10s, entao
-    // a parte 2 comeca em 10, a 3 em 20... Se uma frase aparecer adiantada ou
-    // atrasada, e so mexer nestes numeros.
+    // `parte` e o nome do arquivo (boneca_gc-2.mp4 -> '2', boneca_gc-3b.mp4 ->
+    // '3b'); inicio e fim em segundos DENTRO dessa parte, no arquivo original.
+    // Onde cada parte cai no video e os cortes saem de src/partesVideo.js, entao
+    // trocar ou cortar uma parte nao mexe nas legendas das outras. Se uma frase
+    // aparecer adiantada ou atrasada, e so mexer nestes numeros.
     legendas: [
-      // parte 1
-      { inicio: 0.15, fim: 1.05, texto: 'Oi, gente!' },
-      { inicio: 1.05, fim: 5.0, texto: 'Vamos inaugurar nossa loja física no dia 21, na Granja Portugal,' },
-      { inicio: 5.0, fim: 8.3, texto: 'Rua Londrina, 965, casa A,' },
-      { inicio: 8.3, fim: 10.0, texto: 'a partir das 9h da manhã!' },
-      // parte 2
-      { inicio: 10.9, fim: 13.9, texto: 'No dia da inauguração vai ter coffee break,' },
-      { inicio: 13.9, fim: 15.85, texto: 'estoura balão com brindes,' },
-      { inicio: 15.85, fim: 19.8, texto: 'looks maravilhosos e muitos mimos!' },
-      // parte 3
-      { inicio: 21.0, fim: 23.85, texto: 'E tem mais: 10% de desconto em qualquer modelinho,' },
-      { inicio: 23.85, fim: 26.8, texto: 'do dia 21 ao dia 28 de novembro!' },
-      { inicio: 26.85, fim: 29.9, texto: 'E muita novidade em looks plus size e slim!' },
-      // parte 4
-      { inicio: 30.7, fim: 32.45, texto: 'E não é só roupa, não!' },
-      { inicio: 32.45, fim: 35.65, texto: 'Tem brincos, colares, anéis, braceletes,' },
-      { inicio: 35.65, fim: 39.9, texto: 'sandálias, bolsas, maquiagens e muito mais!' },
-      // parte 5
-      { inicio: 40.9, fim: 43.2, texto: 'Esperamos todos vocês lá!' },
-      { inicio: 43.2, fim: 45.6, texto: 'Venham comemorar com a gente!' },
-      // Parte nova (boneca_gc-6.mp4...): rode arte/gerar-video.py e acrescente as
-      // frases aqui com os tempos de "fala" que ele imprime no fim.
+      { parte: '1', inicio: 0.15, fim: 1.05, texto: 'Oi, gente!' },
+      { parte: '1', inicio: 1.05, fim: 5.0, texto: 'Vamos inaugurar nossa loja física no dia 21, na Granja Portugal,' },
+      { parte: '1', inicio: 5.0, fim: 8.3, texto: 'Rua Londrina, 965, casa A,' },
+      { parte: '1', inicio: 8.3, fim: 10.0, texto: 'a partir das 9h da manhã!' },
+
+      { parte: '2', inicio: 0.9, fim: 3.9, texto: 'No dia da inauguração vai ter coffee break,' },
+      { parte: '2', inicio: 3.9, fim: 5.85, texto: 'estoura balão com brindes,' },
+      { parte: '2', inicio: 5.85, fim: 9.8, texto: 'looks maravilhosos e muitos mimos!' },
+
+      { parte: '3', inicio: 1.0, fim: 4.4, texto: 'E tem mais: 10% de desconto em qualquer modelinho,' },
+      { parte: '3', inicio: 4.4, fim: 6.85, texto: 'do dia 21 ao dia 28 de novembro!' },
+      { parte: '3', inicio: 6.85, fim: 10.15, texto: 'E muita novidade em looks plus size e slim!' },
+
+      { parte: '4', inicio: 0.7, fim: 2.45, texto: 'E não é só roupa, não!' },
+      { parte: '4', inicio: 2.45, fim: 5.65, texto: 'Tem brincos, colares, anéis, braceletes,' },
+      { parte: '4', inicio: 5.65, fim: 9.9, texto: 'sandálias, bolsas, maquiagens e muito mais!' },
+
+      { parte: '5', inicio: 0.9, fim: 3.2, texto: 'Esperamos todos vocês lá!' },
+      { parte: '5', inicio: 3.2, fim: 5.6, texto: 'Venham comemorar com a gente!' },
+      // Parte nova: rode arte/gerar-video.py e acrescente as frases com os tempos
+      // de "fala" que ele imprime no fim.
     ],
     videoDescricao: 'Bonequinha da GC STYLLUS convidando para a inauguração',
   },

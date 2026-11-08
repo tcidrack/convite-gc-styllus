@@ -15,3 +15,9 @@ __pycache__/
 # video para story, gerado por frontend/arte/gerar-story.py
 story-*.mp4
 story-previa.png
+previas-parte3/
+prompt-dez.txt
+dez.mp4
+boneca_gc-3-antigo.mp4
+prompt-vinte-e-um.txt
+vinte-e-um.mp4

@@ -23,11 +23,11 @@ Precisa das fontes do convite, baixadas sozinhas na primeira vez para
 """
 import datetime
 import importlib.util
+import itertools
 import os
 import re
 import subprocess
 import sys
-import textwrap
 import urllib.request
 
 import numpy as np
@@ -40,6 +40,7 @@ spec.loader.exec_module(g)
 
 FRONTEND = g.FRONTEND
 TEMA = os.path.join(FRONTEND, "src", "configuracaoTema.js")
+PARTES_JS = g.PARTES_JS
 AUDIO_DE = g.DESTINO
 SAIDA = os.path.join(g.PASTA_PARTES, "story-gc-styllus.mp4")
 PREVIA = os.path.join(g.PASTA_PARTES, "story-previa.png")
@@ -88,15 +89,40 @@ def fonte(nome, tamanho, peso=None):
     return f
 
 
+def tempo_no_video():
+    """Mesma conta de src/legendas.js, com os dados de src/partesVideo.js."""
+    texto = open(PARTES_JS, encoding="utf-8").read()
+    bloco = lambda nome: texto[texto.index(nome):].split("}")[0]
+    inicios = {k: float(v) for k, v in re.findall(r'"(\w+)":\s*([\d.]+)', bloco("INICIO_PARTES"))}
+    trechos = {}
+    numero = r"([\d.]+),\s*"
+    for k, lista in re.findall(r'"(\w+)":\s*\[(.*)\],', bloco("TRECHOS")):
+        trechos[k] = [tuple(map(float, q)) for q in re.findall(r"\[" + numero * 3 + r"([\d.]+)\]", lista)]
+
+    def conta(parte, t):
+        desloc = 0.0
+        for oi, of, ni, nf in trechos.get(parte, []):
+            if t >= of:
+                desloc = nf - of
+            elif t > oi:
+                return inicios[parte] + ni + (t - oi) * (nf - ni) / (of - oi)
+            else:
+                break
+        return inicios[parte] + t + desloc
+    return inicios, conta
+
+
 def ler_tema():
     texto = open(TEMA, encoding="utf-8").read()
+    inicios, conta = tempo_no_video()
     legendas = []
     for linha in texto.splitlines():
         if linha.strip().startswith("//"):
             continue
-        achou = re.search(r"\{\s*inicio:\s*([\d.]+),\s*fim:\s*([\d.]+),\s*texto:\s*'([^']*)'", linha)
-        if achou:
-            legendas.append((float(achou.group(1)), float(achou.group(2)), achou.group(3)))
+        achou = re.search(r"\{\s*parte:\s*'(\w+)',\s*inicio:\s*([\d.]+),\s*fim:\s*([\d.]+),\s*texto:\s*'([^']*)'", linha)
+        if achou and achou.group(1) in inicios:
+            parte = achou.group(1)
+            legendas.append((conta(parte, float(achou.group(2))), conta(parte, float(achou.group(3))), achou.group(4)))
     rua = re.search(r"\brua:\s*'([^']*)'", texto).group(1)
     bairro = re.search(r"\bbairro:\s*'([^']*)'", texto).group(1)
     hora, data = re.search(r"dataInicio:\s*'([^']*)'", texto).group(1).split(" ")
@@ -212,7 +238,7 @@ def gerar(previa):
     sessao = g.obter_modelo()
 
     if previa:
-        quadros = g.ler_quadros(partes[0])[:80]
+        quadros = itertools.islice(g.quadros_da_parte(partes[0]), 80)
         for j, (cor, alfa) in enumerate(g.recortar_parte(sessao, quadros)):
             if j == 72:
                 Image.fromarray(montar(base, cor, alfa, legenda_em(j / FPS))).save(PREVIA)
@@ -230,11 +256,10 @@ def gerar(previa):
     i = 0
     for parte in partes:
         print(f"recortando {os.path.basename(parte)}...", flush=True)
-        quadros = g.ler_quadros(parte)
+        quadros = g.quadros_da_parte(parte)
         for cor, alfa in g.recortar_parte(sessao, quadros):
             proc.stdin.write(montar(base, cor, alfa, legenda_em(i / FPS)).tobytes())
             i += 1
-        del quadros
     proc.stdin.close()
     if proc.wait() != 0:
         raise SystemExit("o ffmpeg falhou ao gerar o story")
