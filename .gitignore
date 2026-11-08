@@ -9,3 +9,5 @@ dist/
 bonequinha_gc.mp4
 WhatsApp Image*
 __pycache__/
+.vercel
+.env*
