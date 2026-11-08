@@ -1,0 +1,10 @@
+# O deploy pela CLI manda a pasta inteira; isto fica de fora.
+# As chaves vao como variaveis de ambiente do projeto na Vercel, nao pelo .env.
+.env
+.env.*
+node_modules
+dist
+# ferramentas de quem desenvolve, nao fazem parte do site
+arte
+ferramentas
+public/fotos-teste

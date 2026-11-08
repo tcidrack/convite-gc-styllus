@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.*
+.vercel
+
+# fora do repositorio: video antigo (substituido pelas partes boneca_gc-N.mp4)
+# e fotos de referencia
+bonequinha_gc.mp4
+WhatsApp Image*
+__pycache__/
