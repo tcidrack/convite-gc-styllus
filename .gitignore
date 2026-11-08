@@ -11,3 +11,7 @@ WhatsApp Image*
 __pycache__/
 .vercel
 .env*
+
+# video para story, gerado por frontend/arte/gerar-story.py
+story-*.mp4
+story-previa.png

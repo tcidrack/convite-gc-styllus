@@ -397,20 +397,6 @@ ul {
   color: var(--dourado-claro);
 }
 
-/* --- endereco --- */
-.local {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13.5px;
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--vinho);
-  text-decoration: underline;
-  text-decoration-color: var(--dourado);
-  text-underline-offset: 3px;
-}
-
 .icone {
   width: 1.45em;
   height: 1.45em;
@@ -423,70 +409,102 @@ ul {
   fill: currentColor;
 }
 
-.local .icone {
+/* --- endereco: o ponto mais importante depois da data --- */
+.endereco {
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 12px 14px;
+  text-align: center;
+  background: var(--branco);
+  border: 2px solid var(--dourado);
+  border-radius: 18px;
+  box-shadow: 0 8px 18px var(--sombra);
+}
+
+.endereco-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
   color: var(--rosa);
 }
 
-/* --- confirmar presenca --- */
-.acao-confirmar {
-  flex-shrink: 0;
+.endereco-rua {
+  font-family: var(--fonte-logo);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--vinho);
+}
+
+.endereco-bairro {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--rosa-escuro);
+}
+
+.endereco-acoes {
   width: 100%;
-  max-width: 340px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.botao-mapa,
+.botao-agenda {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: var(--rosa);
-  color: var(--branco);
+  gap: 6px;
+  padding: 11px 8px;
   font-family: var(--fonte-corpo);
-  font-size: 16px;
+  font-size: 14.5px;
   font-weight: 700;
-  padding: 13px 24px;
-  border: none;
+  white-space: nowrap;
+  text-decoration: none;
   border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 4px 0 var(--rosa-escuro), 0 8px 16px var(--sombra);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.acao-confirmar:hover {
+.botao-mapa {
+  color: var(--branco);
+  background: var(--rosa);
+  box-shadow: 0 4px 0 var(--rosa-escuro), 0 8px 16px var(--sombra);
+}
+
+.botao-mapa:hover {
   transform: translateY(2px);
   box-shadow: 0 2px 0 var(--rosa-escuro), 0 5px 10px var(--sombra);
 }
 
-.acao-confirmar.confirmado {
+.botao-agenda {
+  color: var(--rosa);
   background: var(--branco);
-  color: var(--rosa);
-  box-shadow: 0 4px 0 var(--dourado-claro), 0 8px 16px var(--sombra);
-}
-
-.chamada {
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.chamada-link {
-  background: none;
-  border: none;
-  font-family: var(--fonte-corpo);
-  font-weight: 700;
-  color: var(--rosa);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-.acao-secundaria {
-  background: var(--branco);
-  color: var(--rosa);
-  font-family: var(--fonte-corpo);
-  font-size: 15px;
-  font-weight: 700;
-  padding: 10px 20px;
   border: 1.5px solid var(--rosa);
-  border-radius: 999px;
-  cursor: pointer;
+}
+
+/* --- o que mais vai ter --- */
+.mais {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.mais-titulo {
+  margin-bottom: 4px;
+  font-family: var(--fonte-nome);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--rosa);
 }
 
 /* assinatura de quem fez o convite: pequena, sem competir */
@@ -510,10 +528,10 @@ ul {
   text-underline-offset: 2px;
 }
 
-/* ============================ NOVIDADES (depois de confirmar) ============================ */
+/* ============================ NOVIDADES ============================ */
 
 .novidades {
-  margin-bottom: 18px;
+  width: 100%;
 }
 
 /* todas na mesma celula: a janela fica com a altura da maior e nao pula */
@@ -562,9 +580,12 @@ ul {
   color: var(--vinho);
 }
 
-.modal .novidade p {
+.novidade p {
   margin: 0;
   font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
 }
 
 .novidade-lista {
@@ -583,7 +604,7 @@ ul {
   border-radius: 999px;
 }
 
-.modal .novidade-fim {
+.novidade p.novidade-fim {
   font-weight: 700;
   color: var(--rosa);
 }
@@ -618,135 +639,6 @@ ul {
 .novidades-pontos button.ativo::before {
   background: var(--rosa);
 }
-
-/* ============================ MODAL ============================ */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(94, 18, 57, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  padding: 20px;
-  animation: aparecer 0.2s ease-out;
-}
-
-@keyframes aparecer {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-.modal {
-  background: var(--degrade);
-  border: 2px solid var(--dourado);
-  border-radius: 26px;
-  width: 100%;
-  max-width: 380px;
-  padding: 30px 22px 24px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 18px 40px rgba(94, 18, 57, 0.35);
-  max-height: 100%;
-  overflow-y: auto;
-}
-
-.modal h2 {
-  font-family: var(--fonte-nome);
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 1.2;
-  color: var(--rosa);
-  margin-bottom: 8px;
-}
-
-.modal p {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.45;
-  margin-bottom: 16px;
-}
-
-.modal input {
-  width: 100%;
-  font-family: var(--fonte-corpo);
-  font-size: 16px;
-  color: var(--vinho);
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1.5px solid var(--fundo-escuro);
-  background: var(--branco);
-  margin-bottom: 14px;
-}
-
-.modal input:focus {
-  outline: none;
-  border-color: var(--rosa);
-}
-
-.btn-confirmar {
-  width: 100%;
-  background: var(--rosa);
-  color: var(--branco);
-  font-family: var(--fonte-corpo);
-  font-size: 16px;
-  font-weight: 700;
-  padding: 14px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 0 var(--rosa-escuro);
-}
-
-.btn-confirmar:disabled {
-  opacity: 0.65;
-  cursor: default;
-}
-
-.btn-link {
-  display: block;
-  text-decoration: none;
-  text-align: center;
-}
-
-.acao-secundaria.btn-link {
-  margin-top: 14px;
-}
-
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  color: var(--rosa);
-  cursor: pointer;
-}
-
-/* ============================ TOAST ============================ */
-
-.toast {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 30px;
-  padding: 11px 18px;
-  border-radius: 14px;
-  color: var(--branco);
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 6px 18px rgba(94, 18, 57, 0.3);
-  z-index: 9999;
-  width: max-content;
-  max-width: calc(100% - 32px);
-  text-align: center;
-}
-
-.toast-success { background: var(--rosa-escuro); }
-.toast-error   { background: #A5243A; }
-.toast-info    { background: var(--texto); }
 
 /* ============================ SPLASH ============================ */
 
@@ -1153,15 +1045,12 @@ ul {
   .splash-texto     { font-size: 16px; margin-top: 30px; }
 }
 
-/* celular bem baixo: a janela de novidades tem que caber sem rolar */
+/* celular bem baixo: o cartao do endereco aperta para caber na primeira tela */
 @media (max-height: 600px) {
-  .modal-overlay { padding: 8px; }
-  .modal { padding: 16px 16px 14px; }
-  .modal p { margin-bottom: 8px; }
-  .novidade { padding: 10px; }
-  .novidades { margin-bottom: 8px; }
-  .acao-secundaria.btn-link { margin-top: 8px; padding: 8px 20px; }
-  .btn-confirmar { padding: 11px; }
+  .endereco { padding: 9px 10px 11px; }
+  .endereco-rua { font-size: 18px; }
+  .endereco-acoes { margin-top: 7px; }
+  .botao-mapa, .botao-agenda { padding: 9px 6px; }
 }
 
 /* "Reduzir movimento": so os enfeites ficam mais lentos. Zerar tudo deixava o

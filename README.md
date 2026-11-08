@@ -16,8 +16,8 @@ npm run build    # gera dist/
 | Rota | O que é |
 |---|---|
 | `/` | Envelope; ao tocar, sobe o cartão com a logo e abre o convite |
-| `/convite` | Primeira tela: vídeo, data, 3 destaques, local e confirmar presença. O restante aparece na janela depois de confirmar |
-| `/admin` | Lista de quem confirmou presença (pede senha) |
+| `/convite` | Primeira tela: vídeo com legenda, data, 3 destaques e o endereço em destaque, com "Ver no mapa" e "Salvar na agenda". Abaixo, as novidades, uma por vez. O convite é aberto: não pede confirmação de presença |
+| `/admin` | Lista de quem confirmou presença enquanto o convite pedia confirmação (pede senha) |
 
 ## Editar os dados
 
@@ -47,6 +47,8 @@ O navegador pode guardar o vídeo antigo depois de gerar um novo: recarregue com
 A logo é desenhada em código (`src/componentes/Logo.jsx`).
 
 ## Confirmação de presença (Supabase)
+
+O convite deixou de pedir confirmação (é aberto). O banco continua de pé só para a `/admin` mostrar quem confirmou antes.
 
 O `.env` aponta para o mesmo projeto Supabase dos outros convites. Todos os objetos do banco têm o sufixo `gc_styllus`, para não mexer neles.
 

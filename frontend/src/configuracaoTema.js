@@ -26,11 +26,19 @@ export const tema = {
     { icone: 'balao', titulo: 'Estoura balão', detalhe: 'Com brindes de looks maravilhosos' },
   ],
 
-  // Convite para confirmar, embaixo do botao
-  chamada: 'Confirme e veja tudo o que preparamos',
+  // << EDITE AQUI >> o endereco em destaque. O link do mapa e o da agenda
+  // ficam em `calendario`, mais abaixo.
+  local: {
+    titulo: 'Onde vai ser',
+    rua: 'Rua Londrina, 965, Casa A',
+    bairro: 'Granja Portugal',
+    botaoMapa: 'Ver no mapa',
+    botaoAgenda: 'Salvar na agenda',
+  },
 
-  // << EDITE AQUI >> o que so aparece depois de confirmar, uma novidade por vez
+  // << EDITE AQUI >> embaixo do endereco, uma novidade por vez
   novidades: {
+    titulo: 'Olha o que mais vai ter',
     intervalo: 4500, // ms que cada novidade fica na tela
     itens: [
       {
@@ -100,15 +108,6 @@ export const tema = {
     videoDescricao: 'Bonequinha da GC STYLLUS convidando para a inauguração',
   },
 
-  // Janela de agradecimento (abre depois de confirmar)
-  agradecimento: {
-    titulo: 'Presença confirmada!',
-    subtitulo: 'Te esperamos! Olha o que mais vai ter:',
-    botaoVer: 'Ver tudo o que preparamos',
-    botaoAgenda: 'Adicionar à agenda',
-    botaoMapa: 'Ver no mapa',
-  },
-
   // Assinatura discreta no rodape do convite
   assinatura: {
     texto: 'Feito por',
@@ -128,9 +127,8 @@ export const tema = {
     dataFim: '', // opcional; vazio usa o mesmo horario de inicio
   },
 
-  // Funcoes do Supabase (ver database.sql)
-  funcaoConfirmar: 'confirmar_presenca_gc_styllus',
-  // A /admin le a lista por esta funcao, que pede a senha (database.sql, bloco 6)
+  // O convite e aberto: nao pede mais confirmacao. A /admin continua mostrando
+  // quem confirmou antes, por esta funcao, que pede a senha (database.sql, bloco 6)
   funcaoListar: 'listar_confirmados_gc_styllus',
 }
 

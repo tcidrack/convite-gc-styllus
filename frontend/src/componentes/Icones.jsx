@@ -22,15 +22,19 @@ export function IconePin() {
   )
 }
 
-export function IconeCheck({ preenchido = false }) {
-  return preenchido ? (
-    <svg className="icone icone-solido" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.6-4.2-4.2 1.4-1.4 2.8 2.8 5.2-5.2 1.4 1.4-6.6 6.6z" />
-    </svg>
-  ) : (
+export function IconeRota() {
+  return (
     <Contorno>
-      <circle cx="12" cy="12" r="9" />
-      <path d="m8 12.3 2.7 2.7L16 9.7" />
+      <path d="M3.5 11 20.5 3.5 13 20.5l-1.9-7.6z" />
+    </Contorno>
+  )
+}
+
+export function IconeAgenda() {
+  return (
+    <Contorno>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path d="M3.5 10h17M8 3v4M16 3v4" />
     </Contorno>
   )
 }
